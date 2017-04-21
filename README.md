@@ -3,141 +3,142 @@
 
 
 ## 参考：
-    * https://medium.com/@dabit3/beginner-s-guide-to-webpack-b1f1a3638460
-    * https://segmentfault.com/a/1190000006670084
+ * https://medium.com/@dabit3/beginner-s-guide-to-webpack-b1f1a3638460
+ * https://segmentfault.com/a/1190000006670084
 
 
 ### webpack-dev-server: 
 
-    configuration.output.path: The provided value "./dist" is not an absolute path!
+ configuration.output.path: The provided value "./dist" is not an absolute path!
 
-    解决：path.join 
-    path: path.join(__dirname, "list”)
+ 解决：path.join 
+ path: path.join(__dirname, "list”)
 
-    安装版本1的webpack:
-    npm i webpack@1 webpack-dev-server@1 --save-dev
+ 安装版本1的webpack:
+ npm i webpack@1 webpack-dev-server@1 --save-dev
 
-    http://www.cnblogs.com/le0zh/p/5619350.html
-    安装eslint:
-    npm i eslint eslint-loader —save-dev
-    npm i babel-eslint —save-dev
-    npm --save-dev install eslint-plugin-react
+ http://www.cnblogs.com/le0zh/p/5619350.html
+ 安装eslint:
+ npm i eslint eslint-loader —save-dev
+ npm i babel-eslint —save-dev
+ npm --save-dev install eslint-plugin-react
 
 ### 扩展ESLint规则:
-    npm --save-dev install eslint-config-airbnb eslint-plugin-import eslint-plugin-jsx-a11y
-    { 
-      parser: "babel-eslint",
-      extends: "airbnb",
-      rules: { 
-        "max-len": [1, 120, 2, { ignoreComments: true }],
-        "prop-types": [2] 
-      }
-    }
+ npm --save-dev install eslint-config-airbnb eslint-plugin-import eslint-plugin-jsx-a11y
+ { 
+   parser: "babel-eslint",
+   extends: "airbnb",
+   rules: { 
+     "max-len": [1, 120, 2, { ignoreComments: true }],
+     "prop-types": [2] 
+   }
+ }
 
 ### 去除console.log, debug:
 
-    https://segmentfault.com/a/1190000006932131
+ https://segmentfault.com/a/1190000006932131
 
-    ```
-    npm install --save-dev strip-loader
+ ```
+ npm install --save-dev strip-loader
 
-    webpack-build.config.js配置strip-loader
-    var WebpackStrip = require('strip-loader');
-    var devConfig = require('./webpack.config’);
+ webpack-build.config.js配置strip-loader
+ var WebpackStrip = require('strip-loader');
+ var devConfig = require('./webpack.config’);
 
-    devConfig.entry = {
-      app: [
-            './src/app.js',
-            "./src/global.js", ]
-    }
+ devConfig.entry = {
+   app: [
+         './src/app.js',
+         "./src/global.js", ]
+ }
 
-    var stripLoader = {
-        test: [/\.js$/, /\.es6$/],
-        exclude: /node_modules/,
-        loader: WebpackStrip.loader('console.log', 'debug')
-    };
-    devConfig.module.loaders.push(stripLoader);
-    module.exports = devConfig;
-    ```
+ var stripLoader = {
+     test: [/\.js$/, /\.es6$/],
+     exclude: /node_modules/,
+     loader: WebpackStrip.loader('console.log', 'debug')
+ };
+ devConfig.module.loaders.push(stripLoader);
+ module.exports = devConfig;
+ ```
 
-    设置webpack执行的配置文件
+ 设置webpack执行的配置文件
 
-    ```
-    webpack --config webpack-build.config.js -p
-    ```
+ ```
+ webpack --config webpack-build.config.js -p
+ ```
 
-    这个命令执行完之后，bundle.js就按照build中的的配置对代码进行了一系列合作。
+ 这个命令执行完之后，bundle.js就按照build中的的配置对代码进行了一系列合作。
 
-    -p 会执行压缩
+ -p 会执行压缩
 
 说明: webpack --config 用于设置使用哪个配置文件做操作。
 
 
 ### 使用React.js:
 
-    ```
-    npm install react react-dom —save
-    ```
+ ```
+ npm install react react-dom —save
+ ```
 
 ### PropTyeps:
 
-    https://segmentfault.com/a/1190000007814801
+https://segmentfault.com/a/1190000007814801
 
-    * eslint Component should be written as a pure function ：
-    ...
-    "react/prefer-stateless-function": [<enabled>, { "ignorePureComponents": <ignorePureComponents> }]
-    ...
-    * enabled: for enabling the rule. 0=off, 1=warn, 2=error. Defaults to 0.
-    * ignorePureComponents: optional boolean set to true to ignore components extending from React.PureComponent (default to false).
+### eslint Component should be written as a pure function ：
 
+"react/prefer-stateless-function": [<enabled>, { "ignorePureComponents": <ignorePureComponents> }]
+
+enabled: for enabling the rule. 0=off, 1=warn, 2=error. Defaults to 0.
+
+ignorePureComponents: optional boolean set to true to ignore components extending from React.PureComponent (default to false).
+ 
+ 
 ### eslint 'document' is not defined :
+http://stackoverflow.com/questions/41858052/solving-linter-error-no-undef-for-document
 
-    http://stackoverflow.com/questions/41858052/solving-linter-error-no-undef-for-document
+### Set the environment as browser in your file:
+```
+/* eslint-env browser */ 加个注释
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App’;
 
- 1. Set the environment as browser in your file:
-    ```
-    /* eslint-env browser */ 加个注释
-    import React from 'react';
-    import ReactDOM from 'react-dom';
-    import App from './App’;
-
-    ReactDOM.render(
-      <App />,
-      document
-    .getElementById('root'),
-    );
-   ```
+ReactDOM.render(
+<App />,
+document
+.getElementById('root'),
+);
+```
+   
 ### Add it as a global in the file itself:
+```
+/* global document */
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App’;
 
-    ```
-    /* global document */
-    import React from 'react';
-    import ReactDOM from 'react-dom';
-    import App from './App’;
-
-    ReactDOM.render(
-      <App />,
-      document
-    .getElementById('root'),
-    );
-    ```
+ReactDOM.render(
+<App />,
+document
+.getElementById('root'),
+);
+```
 
 ### JSX not allowed in files with extension '.js’:
 
-    https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-filename-extension.md
+https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-filename-extension.md
 
-    The set of allowed extensions is configurable. By default '.jsx' is allowed. If you wanted to allow both '.jsx' and '.js', the configuration would be:
+The set of allowed extensions is configurable. By default '.jsx' is allowed. If you wanted to allow both '.jsx' and '.js', the configuration would be:
 
-    "rules": {
-      "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-    }
+"rules": {
+   "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+}
 
 ### Accessing PropTypes via the main React package is deprecated. Use the prop-types package from npm instead:
-    In react 15.5, instead of accessing PropTypes from the main React object, install the prop-types package and import them from there:
-    https://www.npmjs.com/package/prop-types
+ In react 15.5, instead of accessing PropTypes from the main React object, install the prop-types package and import them from there:
+ https://www.npmjs.com/package/prop-types
 
-    import PropTypes from 'prop-types'; // ES6 
-    var PropTypes = require('prop-types'); // ES5 with npm 
+ import PropTypes from 'prop-types'; // ES6 
+ var PropTypes = require('prop-types'); // ES5 with npm 
 
 ### render(): Rendering components directly into document.body is discouraged:
 

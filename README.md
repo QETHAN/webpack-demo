@@ -84,9 +84,9 @@
   https://segmentfault.com/a/1190000007814801
 
 ### eslint Component should be written as a pure function ：
-
+  ```
   "react/prefer-stateless-function": [<enabled>, { "ignorePureComponents": <ignorePureComponents> }]
-
+  ```
   enabled: for enabling the rule. 0=off, 1=warn, 2=error. Defaults to 0.
 
   ignorePureComponents: optional boolean set to true to ignore components extending from React.PureComponent (default to false).
@@ -103,9 +103,8 @@ http://stackoverflow.com/questions/41858052/solving-linter-error-no-undef-for-do
   import App from './App’;
 
   ReactDOM.render(
-  <App />,
-  document
-  .getElementById('root'),
+   <App />,
+   document.getElementById('root'),
   );
   ```
    
@@ -117,9 +116,8 @@ http://stackoverflow.com/questions/41858052/solving-linter-error-no-undef-for-do
   import App from './App’;
 
   ReactDOM.render(
-  <App />,
-  document
-  .getElementById('root'),
+   <App />,
+   document.getElementById('root'),
   );
   ```
 
@@ -128,24 +126,25 @@ http://stackoverflow.com/questions/41858052/solving-linter-error-no-undef-for-do
   https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-filename-extension.md
 
   The set of allowed extensions is configurable. By default '.jsx' is allowed. If you wanted to allow both '.jsx' and '.js', the configuration would be:
-
+  ```
   "rules": {
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
   }
+  ```
 
 ### Accessing PropTypes via the main React package is deprecated. Use the prop-types package from npm instead:
   In react 15.5, instead of accessing PropTypes from the main React object, install the prop-types package and import them from there:
   https://www.npmjs.com/package/prop-types
-
+  ```
   import PropTypes from 'prop-types'; // ES6 
   var PropTypes = require('prop-types'); // ES5 with npm 
-
+  ```
 ### render(): Rendering components directly into document.body is discouraged:
 
   https://github.com/b52/electron-es6-react/issues/7
-
+  ```
   eactDOM.render(<Main />, document.body);
-
+  ```
   results in a chromium warning
 
   warning.js:36 Warning: render(): Rendering components directly into document.body is discouraged, since its children are often manipulated by third-party scripts and browser extensions. This may lead to subtle reconciliation issues. Try rendering into a container element created for your app.
@@ -153,13 +152,13 @@ http://stackoverflow.com/questions/41858052/solving-linter-error-no-undef-for-do
   The better solution:
 
   Change the rendering call to
-
+  ```
   ReactDOM.render(<Main />, document.getElementById('react_container'));
-
+  ```
   and add the following between the tags of the index.html file:
-
+  ```
   <div id="react_container"></div>
-
+  ```
 ### 创建github仓库：
 
   git init // 初始化本地git仓库
@@ -172,17 +171,17 @@ http://stackoverflow.com/questions/41858052/solving-linter-error-no-undef-for-do
   相关的问题在 stackoverflow上也有提及。产生这个问题的原因是，windows、Linux和Mac在处理文件换行时的标示符是不一致的。windows使用CRLF作为结束符，而Linux和Mac使用LF作为结束符。
 
   同时呢，Git 有两种模式来对待换行符，你可以通过下面这行代码查看你的git配置。
-
-$ git config core.autocrlf
-
+  ```
+  $ git config core.autocrlf
+  ```
   如果显示为true，则每一次当你git commit时，如果存在文本文件，那么git会自动帮你将末尾的换行符改为CRLF，省去了烦心的转换工作。
 
   如果显示为false，则git不会对换行符进行修改，保持原本的内容。
 
   所以呢，作为Linux和Mac开发者，这个配置应当为false，而windows开发者，则应当设置为true。
-
+  ```
   $ git config --global core.autocrlf  false
-
+  ```
   引用资料：
 
   http://stackoverflow.com/questions/1967370/git-replacing-lf-with-crlf

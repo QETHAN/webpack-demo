@@ -12,18 +12,25 @@
   configuration.output.path: The provided value "./dist" is not an absolute path!
 
   解决：path.join 
+  ```
   path: path.join(__dirname, "list”)
-
+  ```
+  
   安装版本1的webpack:
+  ```
   npm i webpack@1 webpack-dev-server@1 --save-dev
-
+  ```
+  
   http://www.cnblogs.com/le0zh/p/5619350.html
   安装eslint:
+  ```
   npm i eslint eslint-loader —save-dev
   npm i babel-eslint —save-dev
   npm --save-dev install eslint-plugin-react
-
+  ```
+  
 ### 扩展ESLint规则:
+  ```
   npm --save-dev install eslint-config-airbnb eslint-plugin-import eslint-plugin-jsx-a11y
   { 
     parser: "babel-eslint",
@@ -33,6 +40,7 @@
       "prop-types": [2] 
     }
   }
+  ```
 
 ### 去除console.log, debug:
 
@@ -160,10 +168,11 @@ http://stackoverflow.com/questions/41858052/solving-linter-error-no-undef-for-do
   <div id="react_container"></div>
   ```
 ### 创建github仓库：
-
+  ```
   git init // 初始化本地git仓库
   git remote add origin https://github.com/QETHAN/webpack-demo.git // 关联到github仓库
-
+  ```
+  
   git 出现warning: CRLF will be replaced by LF :
 
   我想这应该是下载一个从windows里到处的项目时遇上的。前些天发现了这个问题。在git commit时无法提交，提示warning: LF will be replaced by CRLF…..。

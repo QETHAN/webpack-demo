@@ -43,28 +43,30 @@
   }
   ```
 
-### 去除console.log, debug:
+### 上线环境中，去除console.log, debug:
 
   https://segmentfault.com/a/1190000006932131
 
   ```
   npm install --save-dev strip-loader
 
-  webpack-build.config.js配置strip-loader
+  // webpack-build.config.js配置strip-loader
   var WebpackStrip = require('strip-loader');
   var devConfig = require('./webpack.config’);
 
   devConfig.entry = {
     app: [
           './src/app.js',
-          "./src/global.js", ]
+          './src/global.js', 
+         ]
   }
-
+  
   var stripLoader = {
       test: [/\.js$/, /\.es6$/],
       exclude: /node_modules/,
       loader: WebpackStrip.loader('console.log', 'debug')
   };
+  
   devConfig.module.loaders.push(stripLoader);
   module.exports = devConfig;
   ```

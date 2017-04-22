@@ -22,6 +22,7 @@
   ```
   
   http://www.cnblogs.com/le0zh/p/5619350.html
+  
   安装eslint:
   ```
   npm i eslint eslint-loader —save-dev

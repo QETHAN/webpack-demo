@@ -4,7 +4,7 @@ const path = require('path')
 module.exports = {
   entry: { 
     app: [
-      'webpack-dev-server/client?http://localhost:8080/',
+      
       './src/app.js',
       "./src/global.js", ]
   },

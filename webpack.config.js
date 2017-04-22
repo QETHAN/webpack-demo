@@ -30,6 +30,11 @@ module.exports = {
         query: {
           presets: ['react', 'es2015'] 
         }
+      },
+      {
+        test: /\.css$/,
+        exclude: /node_modules/,
+        loader: 'style!css'
       }
     ]
   },

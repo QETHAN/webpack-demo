@@ -77,7 +77,7 @@
 
   这个命令执行完之后，bundle.js就按照build中的的配置对代码进行了一系列合作。
 
-  -p 会执行压缩
+  -p 会执行压缩，This command is short for webpack --optimize-minimize.
 
  说明: webpack --config 用于设置使用哪个配置文件做操作。
 

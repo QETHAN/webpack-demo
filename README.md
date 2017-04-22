@@ -60,12 +60,13 @@
           './src/global.js', 
          ]
   }
-
+  
   var stripLoader = {
       test: [/\.js$/, /\.es6$/],
       exclude: /node_modules/,
       loader: WebpackStrip.loader('console.log', 'debug')
   };
+  
   devConfig.module.loaders.push(stripLoader);
   module.exports = devConfig;
   ```

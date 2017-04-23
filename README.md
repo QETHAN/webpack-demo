@@ -355,6 +355,8 @@ http://stackoverflow.com/questions/41858052/solving-linter-error-no-undef-for-do
 
   
 ### 图片文件目录：
+ 
+ https://github.com/webpack-contrib/file-loader
   
   ```
   {
@@ -366,6 +368,15 @@ http://stackoverflow.com/questions/41858052/solving-linter-error-no-undef-for-do
 
 ### 模块资源对应目录：
 
+  ```
+  entry: { 
+    'hello/hello': './src/hello/index.js',
+    'index/index': './src/index/index.js'
+  },
+  
+  ```
+  
+  entry名字中包含目录斜杠，会自动创建对应子目录
 
 ### 抽取公共css:
 

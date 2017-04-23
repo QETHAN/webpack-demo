@@ -281,6 +281,8 @@ http://stackoverflow.com/questions/41858052/solving-linter-error-no-undef-for-do
   ```
 
   使用jquery插件时候，eslint loader提前执行，会提示一些错误，这时候可以使用注释屏蔽掉：
+  
+  http://eslint.cn/docs/user-guide/configuring
 
   ```
   /* eslint-disable */

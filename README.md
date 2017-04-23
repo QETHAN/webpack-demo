@@ -286,7 +286,6 @@ http://stackoverflow.com/questions/41858052/solving-linter-error-no-undef-for-do
 
   ```
   /* eslint-disable */
-
   ```
 
   只用eslint校验自己写的代码
@@ -298,7 +297,6 @@ http://stackoverflow.com/questions/41858052/solving-linter-error-no-undef-for-do
   
   ```
   npm install html-webpack-plugin --save-dev
-  
   ```
 
   filename: 'tpl/index.html'
@@ -332,7 +330,6 @@ http://stackoverflow.com/questions/41858052/solving-linter-error-no-undef-for-do
       new ExtractTextPlugin("styles.css")
     ]
   }
-
   ```
 
 ### 处理图片，url-loader：
@@ -346,7 +343,6 @@ http://stackoverflow.com/questions/41858052/solving-linter-error-no-undef-for-do
     test: /\.(png|jpg|gif)$/,
     loader: 'url-loader?limit=8192&name=./static/img/[hash].[ext]',
   }
-
   ```
 
   html-withimg-loader
@@ -373,7 +369,6 @@ http://stackoverflow.com/questions/41858052/solving-linter-error-no-undef-for-do
     'hello/hello': './src/hello/index.js',
     'index/index': './src/index/index.js'
   },
-  
   ```
   
   entry名字中包含目录斜杠，会自动创建对应子目录

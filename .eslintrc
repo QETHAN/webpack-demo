@@ -5,5 +5,8 @@
     "max-len": [1, 120, 2, { ignoreComments: true }],
     "react/prefer-stateless-function": [0, { "ignorePureComponents": true }],
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "no-console": ["error", { allow: ["log", "warn", "error"] }],
+    "no-alert": 0,
+    "import/no-extraneous-dependencies": 0
   }
 }

@@ -15,9 +15,13 @@
 
 // );
 
-require('./main.css');
+require('../css/style.css');
+require('../css/main.css');
 require('./hello.css');
+
+require('./global.js');
 
 const name = 'es6';
 
 setTimeout(() => console.log(`Hello there from ${name}`), 300);
+

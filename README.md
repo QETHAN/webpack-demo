@@ -197,4 +197,174 @@ http://stackoverflow.com/questions/41858052/solving-linter-error-no-undef-for-do
   引用资料：
 
   http://stackoverflow.com/questions/1967370/git-replacing-lf-with-crlf
+  
+  
+### jquery, jquery插件:
+
+  #### externals 配置项
+
+  当我们想在项目中require一些其他的类库或者API，而又不想让这些类库的源码被构建到运行时文件中。例如 React、jQuery 等文件我们想使用 CDN 的引用，不想把他们打包进输出文件。就可以通过配置 externals 参数来配置：
+
+  ```
+  module.exports = {
+    externals: {
+      jQuery: true
+    }
+  };
+  ```
+
+  然后在页面里引入<script src="//cdn/jquery.min.js"></script>
+  这样 jQuery 就不用打包了，直接指向 windows.jQuery 就好
+  
+
+  #### imports-loader
+
+  用于向一个模块的作用域内注入变量。
+  举个栗子，比如我们需要使用bootstrap.js，这个文件虽然依赖jQuery但其内部没有require('jquery')，这导致文件内的jQuery对象不可识别，所以模块化调用bootstrap.js时就会报错jQuery is not defined`。使用 imports-loader 的话：
+
+  ```
+  require('imports?jQuery=jquery!bootstrap/dist/js/bootstrap');
+  ```
+
+  imports-loader 会在 bootstrap 的源码前面，注入如下代码:
+
+
+  ```
+  /* IMPORTS FROM imports-loader */
+  var jQuery = require("jquery");
+  ```
+
+
+  #### exports-loader
+
+  用于向一个模块中提供导出模块功能。功能与imports-loader类似，但他是在文件的最后添加一行。
+  举个栗子，比如file.js中没有调用export导出模块，或者没有define定义模块，因此无法模块化调用它。可以使用 exports-loader：
+
+  ```
+  require("exports?file,parse=helpers.parse!./file.js");
+  ```
+
+  他会在./file.js文件的最后添加如下代码：
+
+  ```
+  /* EXPORTS FROM exports-loader */
+  exports["file"] = (file);
+  exports["parse"] = (helpers.parse);
+  ```
+
+  #### expose-loader
+
+  这个 loader 是将某个对象暴露成一个全局变量。
+  举个栗子，比如把jQuery对象暴露成全局变量。这样，那些bootstrap.js之类的文件就都能访问这个变量了。
+
+  ```
+  module: {
+    loaders: [
+      { 
+        test: require.resolve("jquery"), 
+        loader: "expose?$!expose?jQuery" 
+      },
+    ]
+  }
+  ```
+  
+  ```
+  https://github.com/webpack-contrib/imports-loader
+  {
+    test: require.resolve('jquery'),
+    loader: "imports?$=jquery&jQuery=jquery&this=>window"
+  },
+  {
+    test: require.resolve('./src/vendor/jq-plugin-a.js'),
+    loader: "imports?$=jquery&jQuery=jquery&this=>window"
+  },
+  ```
+
+  使用jquery插件时候，eslint loader提前执行，会提示一些错误，这时候可以使用注释屏蔽掉：
+
+  ```
+  /* eslint-disable */
+
+  ```
+
+  只用eslint校验自己写的代码
+
+
+### html-webpack-plugin:
+
+  https://github.com/jantimon/html-webpack-plugin
+  
+  ```
+  npm install html-webpack-plugin --save-dev
+  
+  ```
+
+  filename: 'tpl/index.html'
+
+  这个设置会在`dist`目录里生成`tpl/index.html`
+  
+  名字中包含目录斜杠，会自动生成目录
+
+
+### Extract Text Plugin
+
+  * https://github.com/webpack-contrib/extract-text-webpack-plugin
+  * https://github.com/webpack-contrib/extract-text-webpack-plugin/blob/webpack-1/README.md
+  
+  ``` 
+  // for webpack 1
+  npm install --save-dev extract-text-webpack-plugin@1.0.1
+  
+  var ExtractTextPlugin = require("extract-text-webpack-plugin");
+
+  module.exports = {
+    module: {
+      loaders: [
+        { 
+          test: /\.css$/, 
+          loader: ExtractTextPlugin.extract("style-loader", "css-loader") 
+        }
+      ]
+    },
+    plugins: [
+      new ExtractTextPlugin("styles.css")
+    ]
+  }
+
+  ```
+
+### 处理图片，url-loader：
+
+  ```
+  npm i url-loader --save-dev
+
+  {
+    // 图片加载器，雷同file-loader，更适合图片，可以将较小的图片转成base64，减少http请求
+    // 如下配置，将小于8192byte的图片转成base64码
+    test: /\.(png|jpg|gif)$/,
+    loader: 'url-loader?limit=8192&name=./static/img/[hash].[ext]',
+  }
+
+  ```
+
+  html-withimg-loader
+
+  https://github.com/webplus/blog/issues/6
+
+  
+### 图片文件目录：
+  
+  ```
+  {
+    test: /\.(png|jpe?g|gif)$/,
+    exclude: /node_modules/,
+    loader: 'url-loader?limit=8192&publicPath=/&name=image/[name][hash:8].[ext]',
+  },
+  ```
+
+### 模块资源对应目录：
+
+
+### 抽取公共css:
+
 
